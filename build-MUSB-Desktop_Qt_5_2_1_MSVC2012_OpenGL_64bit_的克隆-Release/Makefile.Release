@@ -44,9 +44,29 @@ OBJECTS_DIR   = release
 ####### Files
 
 SOURCES       = ..\MUSB\main.cpp \
-		..\MUSB\musb.cpp release\moc_musb.cpp
+		..\MUSB\musb.cpp \
+		..\MUSB\core.c \
+		..\MUSB\descriptor.c \
+		..\MUSB\hotplug.c \
+		..\MUSB\hotplugtest.c \
+		..\MUSB\io.c \
+		..\MUSB\strerror.c \
+		..\MUSB\sync.c \
+		..\MUSB\os\poll_windows.c \
+		..\MUSB\os\threads_windows.c \
+		..\MUSB\os\windows_usb.c release\moc_musb.cpp
 OBJECTS       = release\main.obj \
 		release\musb.obj \
+		release\core.obj \
+		release\descriptor.obj \
+		release\hotplug.obj \
+		release\hotplugtest.obj \
+		release\io.obj \
+		release\strerror.obj \
+		release\sync.obj \
+		release\poll_windows.obj \
+		release\threads_windows.obj \
+		release\windows_usb.obj \
 		release\moc_musb.obj
 
 DIST          = 
@@ -58,6 +78,26 @@ DESTDIR_TARGET = release\MUSB.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
+
+{..\MUSB\os}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\MUSB\os}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\MUSB\os}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\MUSB\os}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
 
 {release}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
@@ -139,7 +179,7 @@ dist:
 	$(ZIP) MUSB.zip $(SOURCES) $(DIST) ..\MUSB\MUSB.pro D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\spec_pre.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\common\shell-win32.conf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\qconfig.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_axbase.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_axserver.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_clucene_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_concurrent.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_core.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_core_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_declarative.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_declarative_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_designer.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_designer_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_gui.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_gui_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_help.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_help_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_multimedia.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_network.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_network_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_nfc.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_opengl.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_platformsupport_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_positioning.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_printsupport.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_qml.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_qml_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_qmltest.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_quick.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_quick_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_script.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_script_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_scripttools.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_scripttools_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_sensors.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_serialport.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_sql.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_sql_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_svg.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_svg_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_testlib.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_uitools.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_webkit.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_webkit_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_webkitwidgets.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_webkitwidgets_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_widgets.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_winextras.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_xml.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_xml_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\qt_functions.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\qt_config.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\win32-msvc2012\qmake.conf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\spec_post.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\exclusive_builds.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\default_pre.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\win32\default_pre.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\resolve_config.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\exclusive_builds_post.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\default_post.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\build_pass.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\win32\rtti.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\warn_on.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\qt.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\resources.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\moc.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\win32\opengl.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\uic.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\win32\windows.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\testcase_targets.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\exceptions.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\yacc.prf D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\mkspecs\features\lex.prf ..\MUSB\MUSB.pro D:/Qt5.2.1/5.2.1/msvc2012_64_opengl/lib/Qt5Widgets.prl D:/Qt5.2.1/5.2.1/msvc2012_64_opengl/lib/Qt5Gui.prl D:/Qt5.2.1/5.2.1/msvc2012_64_opengl/lib/Qt5Core.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\musb.obj release\moc_musb.obj
+	-$(DEL_FILE) release\main.obj release\musb.obj release\core.obj release\descriptor.obj release\hotplug.obj release\hotplugtest.obj release\io.obj release\strerror.obj release\sync.obj release\poll_windows.obj release\threads_windows.obj release\windows_usb.obj release\moc_musb.obj
 	-$(DEL_FILE) release\MUSB.exp release\MUSB.exe.embed.manifest
 
 distclean: clean
@@ -157,10 +197,9 @@ compiler_rcc_clean:
 compiler_moc_header_make_all: release\moc_musb.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) release\moc_musb.cpp
-release\moc_musb.cpp: D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMainWindow \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qmainwindow.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qwidget.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs.h \
+release\moc_musb.cpp: D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\QString \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstring.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qchar.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qglobal.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qconfig.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qfeatures.h \
@@ -197,17 +236,19 @@ release\moc_musb.cpp: D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMai
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qtypeinfo.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qtypetraits.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qsysinfo.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qbytearray.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qrefcount.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qnamespace.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qarraydata.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstringbuilder.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMainWindow \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qmainwindow.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qwidget.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs_impl.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs_win.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobject.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstring.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qchar.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qbytearray.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qrefcount.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qarraydata.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstringbuilder.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qlist.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qalgorithms.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qiterator.h \
@@ -292,10 +333,9 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 release\main.obj: ..\MUSB\main.cpp ..\MUSB\musb.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMainWindow \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qmainwindow.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qwidget.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\QString \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstring.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qchar.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qglobal.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qconfig.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qfeatures.h \
@@ -332,17 +372,19 @@ release\main.obj: ..\MUSB\main.cpp ..\MUSB\musb.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qtypeinfo.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qtypetraits.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qsysinfo.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qbytearray.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qrefcount.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qnamespace.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qarraydata.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstringbuilder.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMainWindow \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qmainwindow.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qwidget.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs_impl.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs_win.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobject.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstring.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qchar.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qbytearray.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qrefcount.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qarraydata.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstringbuilder.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qlist.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qalgorithms.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qiterator.h \
@@ -412,10 +454,9 @@ release\main.obj: ..\MUSB\main.cpp ..\MUSB\musb.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qinputmethod.h
 
 release\musb.obj: ..\MUSB\musb.cpp ..\MUSB\musb.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMainWindow \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qmainwindow.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qwidget.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\QString \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstring.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qchar.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qglobal.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qconfig.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qfeatures.h \
@@ -452,17 +493,19 @@ release\musb.obj: ..\MUSB\musb.cpp ..\MUSB\musb.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qtypeinfo.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qtypetraits.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qsysinfo.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qbytearray.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qrefcount.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qnamespace.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qarraydata.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstringbuilder.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\QMainWindow \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qmainwindow.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qwidget.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs.h \
+		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobjectdefs_impl.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qwindowdefs_win.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qobject.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstring.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qchar.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qbytearray.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qrefcount.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qarraydata.h \
-		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qstringbuilder.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qlist.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qalgorithms.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtCore\qiterator.h \
@@ -524,6 +567,85 @@ release\musb.obj: ..\MUSB\musb.cpp ..\MUSB\musb.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtWidgets\qtabwidget.h \
 		D:\Qt5.2.1\5.2.1\msvc2012_64_opengl\include\QtGui\qicon.h \
 		ui_musb.h
+
+release\core.obj: ..\MUSB\core.c ..\MUSB\config.h \
+		..\MUSB\libusbi.h \
+		..\MUSB\libusb.h \
+		..\MUSB\version.h \
+		..\MUSB\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h \
+		..\MUSB\hotplug.h
+
+release\descriptor.obj: ..\MUSB\descriptor.c ..\MUSB\libusbi.h \
+		..\MUSB\config.h \
+		..\MUSB\libusb.h \
+		..\MUSB\version.h \
+		..\MUSB\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h
+
+release\hotplug.obj: ..\MUSB\hotplug.c ..\MUSB\config.h \
+		..\MUSB\libusbi.h \
+		..\MUSB\libusb.h \
+		..\MUSB\version.h \
+		..\MUSB\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h \
+		..\MUSB\hotplug.h
+
+release\hotplugtest.obj: ..\MUSB\hotplugtest.c ..\MUSB\libusb.h
+
+release\io.obj: ..\MUSB\io.c ..\MUSB\config.h \
+		..\MUSB\libusbi.h \
+		..\MUSB\libusb.h \
+		..\MUSB\version.h \
+		..\MUSB\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h \
+		..\MUSB\hotplug.h
+
+release\strerror.obj: ..\MUSB\strerror.c ..\MUSB\config.h \
+		..\MUSB\libusb.h \
+		..\MUSB\libusbi.h \
+		..\MUSB\version.h \
+		..\MUSB\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h
+
+release\sync.obj: ..\MUSB\sync.c ..\MUSB\config.h \
+		..\MUSB\libusbi.h \
+		..\MUSB\libusb.h \
+		..\MUSB\version.h \
+		..\MUSB\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h
+
+release\poll_windows.obj: ..\MUSB\os\poll_windows.c ..\MUSB\os\libusbi.h \
+		..\MUSB\os\config.h \
+		..\MUSB\os\libusb.h \
+		..\MUSB\os\version.h \
+		..\MUSB\os\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h
+
+release\threads_windows.obj: ..\MUSB\os\threads_windows.c ..\MUSB\os\config.h \
+		..\MUSB\os\libusbi.h \
+		..\MUSB\os\libusb.h \
+		..\MUSB\os\version.h \
+		..\MUSB\os\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h
+
+release\windows_usb.obj: ..\MUSB\os\windows_usb.c ..\MUSB\os\config.h \
+		..\MUSB\os\libusbi.h \
+		..\MUSB\os\libusb.h \
+		..\MUSB\os\version.h \
+		..\MUSB\os\version_nano.h \
+		..\MUSB\os\threads_windows.h \
+		..\MUSB\os\poll_windows.h \
+		..\MUSB\os\windows_usb.h \
+		..\MUSB\os\windows_common.h
 
 release\moc_musb.obj: release\moc_musb.cpp 
 

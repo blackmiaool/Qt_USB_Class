@@ -6,9 +6,12 @@ MUSB::MUSB(QWidget *parent) :
     ui(new Ui::MUSB)
 {
     ui->setupUi(this);
+    qDebug() << "start";
 }
 
 MUSB::~MUSB()
 {
     delete ui;
 }
+
+

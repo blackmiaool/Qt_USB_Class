@@ -1,8 +1,12 @@
 #ifndef MUSB_H
 #define MUSB_H
 
-#include <QMainWindow>
 
+#include <windows.h>
+#include <dbt.h>
+#include <QString>
+#include <QMainWindow>
+#include "qdebug.h"
 namespace Ui {
 class MUSB;
 }
@@ -17,6 +21,7 @@ public:
 
 private:
     Ui::MUSB *ui;
+
 };
 
 #endif // MUSB_H
