@@ -10,14 +10,7 @@
 #include "libusb.h"
 #include <QStandardItemModel>
 #include <QDir>
-#if defined (__cplusplus)
-extern "C" {
-#endif
-extern int ddd(libusb_device **devs);
 
-#if defined (__cplusplus)
-}
-#endif
 namespace Ui {
 class MUSB;
 }
@@ -37,6 +30,16 @@ private slots:
     void on_treeView_clicked(const QModelIndex &index);
 
     void on_pushButton_5_clicked();
+
+    void on_treeView_activated(const QModelIndex &index);
+
+    void on_treeView_entered(const QModelIndex &index);
+
+    void on_treeView_pressed(const QModelIndex &index);
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
 
 private:
         Ui::MUSB *ui;

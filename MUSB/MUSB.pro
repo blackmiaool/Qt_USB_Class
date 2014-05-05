@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     core.c \
     descriptor.c \
     hotplug.c \
-    hotplugtest.c \
     io.c \
     strerror.c \
     sync.c \

@@ -79,11 +79,8 @@ void MUSB::tree_append(libusb_device * dev_this)
     libusb_device_handle *handle;
     for(int i=0;i<goodsModel->rowCount();i++)
     {
-
-        qDebug()<<goodsModel->data(goodsModel->index(i,0)).toString();
         if(labelString==goodsModel->data(goodsModel->index(i,0)).toString())
         {
-            qDebug()<<desc.idVendor<<"repeat\r\n";
             bus_pos=i;
             goto repeat;
 
@@ -95,7 +92,6 @@ void MUSB::tree_append(libusb_device * dev_this)
 
 repeat:;
     QList<QStandardItem *> addr_list;//List容器
-    qDebug()<<"dddd";
     QStandardItem *addr_item=new QStandardItem(QString("addr%1").arg(dev_addr));
     addr_item->setData(QVariant::fromValue((int)dev_this));
 
@@ -103,9 +99,9 @@ repeat:;
     goodsModel->item(bus_pos,0)->appendRow(addr_list);
 
 
-            //if()
-            //goodsModel->appendRow();
-            // qDebug()<<desc.idVendor;
+    //if()
+    //goodsModel->appendRow();
+    // qDebug()<<desc.idVendor;
 
 }
 MUSB::~MUSB()
@@ -142,4 +138,54 @@ void MUSB::on_pushButton_5_clicked()
 {
     goodsModel->clear();
     showUSBtree();
+}
+
+void MUSB::on_treeView_activated(const QModelIndex &index)
+{
+    qDebug()<<"on_treeView_activated";
+    on_treeView_clicked(index);
+}
+
+void MUSB::on_treeView_entered(const QModelIndex &index)
+{
+    qDebug()<<"on_treeView_entered";
+    on_treeView_clicked(index);
+}
+
+void MUSB::on_treeView_pressed(const QModelIndex &index)
+{
+    qDebug()<<"on_treeView_pressed";
+    on_treeView_clicked(index);
+}
+
+
+void MUSB::on_pushButton_2_clicked()
+{
+
+}
+
+
+void MUSB::on_pushButton_3_clicked()
+{
+    static int open_flag=0;
+    struct libusb_device_handle *handle = NULL;
+    if(open_flag==0)
+    {
+        int libusb_dev;
+        libusb_dev=goodsModel->itemFromIndex(ui->treeView->currentIndex())->data().toInt();
+        if(libusb_dev!=0)
+        if(!libusb_open((libusb_device *)libusb_dev, &handle))
+        {
+            ui->pushButton_3->setText("Close");
+            open_flag=1;
+        }
+    }
+    else
+    {
+        libusb_close(handle);
+        ui->pushButton_3->setText("Open");
+        open_flag=0;
+
+    }
+
 }

@@ -1,5 +1,6 @@
-build-MUSB-Desktop_Qt_5_2_1_MSVC2012_OpenGL_64bit_的克隆-Release/*
-
+build-MUSB-Desktop_Qt_5_2_1_MSVC2012_OpenGL_64bit_的克隆-Release/
+*.Debug
+*.Release
 
 #################
 ## Eclipse
