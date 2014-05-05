@@ -13,9 +13,7 @@ MUSB::MUSB(QWidget *parent) :
     goodsModel = new QStandardItemModel();
     ui->treeView->setModel(goodsModel);
 
-    QStringList s;
-    s.append("USBdev tree");
-    goodsModel->setHorizontalHeaderLabels(s);
+
 
 
     //    QList<QStandardItem *> items;//List容器
@@ -38,6 +36,9 @@ MUSB::MUSB(QWidget *parent) :
 
 void MUSB::showUSBtree()
 {
+    QStringList s;
+    s.append("USBdev tree");
+    goodsModel->setHorizontalHeaderLabels(s);
     libusb_device *dev;
     int i = 0, j = 0;
     uint8_t path[8];
@@ -96,6 +97,8 @@ repeat:;
     QList<QStandardItem *> addr_list;//List容器
     qDebug()<<"dddd";
     QStandardItem *addr_item=new QStandardItem(QString("addr%1").arg(dev_addr));
+    addr_item->setData(QVariant::fromValue((int)dev_this));
+
     addr_list.append(addr_item);
     goodsModel->item(bus_pos,0)->appendRow(addr_list);
 
@@ -113,3 +116,30 @@ MUSB::~MUSB()
 }
 
 
+
+void MUSB::on_treeView_clicked(const QModelIndex &index)
+{
+    struct libusb_device_descriptor desc;
+    qDebug()<<"column"<<index.column();
+    qDebug()<<"rom"<<index.row();
+    //qDebuf()<<""<<index.
+    if(goodsModel->itemFromIndex(index)->data().toBool())
+    {
+        libusb_get_device_descriptor(((libusb_device * )(goodsModel->itemFromIndex(index)->data().toInt())), &desc);
+        char num[10];
+        QByteArray bytearray(10,'0');
+        sprintf(bytearray.data(),"%4x",desc.idVendor);
+        bytearray.fromRawData(num,10);
+        ui->lineEdit_2->setText(bytearray);
+        sprintf(bytearray.data(),"%4x",desc.idProduct);
+        bytearray.fromRawData(num,10);
+        ui->lineEdit_3->setText(bytearray);
+    }
+
+}
+
+void MUSB::on_pushButton_5_clicked()
+{
+    goodsModel->clear();
+    showUSBtree();
+}

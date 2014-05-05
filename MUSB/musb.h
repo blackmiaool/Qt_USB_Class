@@ -33,6 +33,11 @@ public:
     QStandardItemModel *goodsModel;
     void showUSBtree(void);
     void tree_append(libusb_device *);
+private slots:
+    void on_treeView_clicked(const QModelIndex &index);
+
+    void on_pushButton_5_clicked();
+
 private:
         Ui::MUSB *ui;
 
