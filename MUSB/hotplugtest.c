@@ -25,7 +25,8 @@
 #if defined (__cplusplus)
 extern "C" {
 #endif
-extern int ddd(void);
+extern int ddd(libusb_device **devs);
+
 
 #if defined (__cplusplus)
 }
@@ -63,10 +64,10 @@ static int print_devs(libusb_device **devs)
     }
 }
 
-int ddd(void)
+int ddd(libusb_device **devs)
 {
 
-    libusb_device **devs;
+
     int r;
     ssize_t cnt;
 

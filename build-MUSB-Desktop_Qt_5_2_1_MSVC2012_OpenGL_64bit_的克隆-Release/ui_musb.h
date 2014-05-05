@@ -22,6 +22,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,7 +32,8 @@ class Ui_MUSB
 {
 public:
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_2;
+    QTreeView *treeView;
     QVBoxLayout *verticalLayout;
     QTextBrowser *textBrowser;
     QHBoxLayout *horizontalLayout;
@@ -46,13 +48,18 @@ public:
     {
         if (MUSB->objectName().isEmpty())
             MUSB->setObjectName(QStringLiteral("MUSB"));
-        MUSB->resize(400, 300);
+        MUSB->resize(470, 330);
         centralWidget = new QWidget(MUSB);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayout_2 = new QVBoxLayout(centralWidget);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        treeView = new QTreeView(centralWidget);
+        treeView->setObjectName(QStringLiteral("treeView"));
+
+        horizontalLayout_2->addWidget(treeView);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -83,12 +90,12 @@ public:
         verticalLayout->addLayout(horizontalLayout);
 
 
-        verticalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_2->addLayout(verticalLayout);
 
         MUSB->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MUSB);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 23));
+        menuBar->setGeometry(QRect(0, 0, 470, 23));
         MUSB->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MUSB);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
